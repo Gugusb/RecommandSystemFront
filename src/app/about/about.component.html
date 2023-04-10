@@ -1,0 +1,11 @@
+<p>about works!</p>
+<button routerLink="../index/sub">sub</button>
+<button (click)="addCount()">click me</button>
+<button mat-raised-button (click)="addCount()" color="primary" >Primary</button>
+<!--<div *ngIf="isShow">I am show</div>-->
+<mat-form-field class="example-full-width">
+  <mat-label>Favorite food</mat-label>
+  <input matInput [(ngModel)]="count">
+</mat-form-field>
+
+<div *ngFor="let i of arrays">{{i}}</div>
