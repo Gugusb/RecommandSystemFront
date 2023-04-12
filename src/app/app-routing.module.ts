@@ -2,11 +2,16 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {AboutComponent} from "./about/about.component";
 import {IndexRoutingModule} from "./index/index-routing.module";
+import {UserInformationComponent} from "./user-information/user-information.component";
 
 const routes: Routes = [
   {
     path:'about',
     component:AboutComponent
+  },
+  {
+    path:'user-information',
+    component:UserInformationComponent
   },
   {
     path:'index',

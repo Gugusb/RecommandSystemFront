@@ -1,0 +1,58 @@
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.top-toolbar{
+  position: fixed;
+  height: 10vh;
+  z-index: 10;
+}
+
+.user-toolbar{
+  position: fixed;
+  z-index: 1;
+  opacity: 0.2;
+  height: 5vh;
+}
+
+.div-toolbar-down{
+  height: 10vh;
+  z-index: 0;
+}
+
+.div-main{
+  z-index: 0;
+}
+
+.mat-drawer-container {
+  width: 100vw;
+  height: 90vh;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.mat-drawer-sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.mat-drawer-sidenav {
+  padding: 20px;
+  width: 37.5%;
+}
+
+.user-funciton-div{
+  display: flex;
+  flex-direction: column;
+}
+
+.divider{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.icons{
+  padding-right: 10px;
+}
+

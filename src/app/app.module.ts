@@ -12,13 +12,20 @@ import {FormsModule} from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
 import { EchartsComponent } from './echarts/echarts.component';
 import { NgxEchartsModule } from 'ngx-echarts';
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatIconModule} from "@angular/material/icon";
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatDividerModule} from "@angular/material/divider";
+import {MatExpansionModule} from "@angular/material/expansion";
+import { UserInformationComponent } from './user-information/user-information.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     AboutComponent,
-    EchartsComponent
+    EchartsComponent,
+    UserInformationComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +38,12 @@ import { NgxEchartsModule } from 'ngx-echarts';
     HttpClientModule,
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts')
-    })
+    }),
+    MatToolbarModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatDividerModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]

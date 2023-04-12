@@ -13,6 +13,9 @@ const httpOptions = {
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  isAdminer = true;
+  showFiller = false;
+  panelOpenState = true;
   title = 'rs_front';
   myUrl = 'http://127.0.0.1:8036/user';
   constructor(private http : HttpClient) {

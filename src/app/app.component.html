@@ -1,12 +1,99 @@
 
-<button (click)="postData()">POST</button>
-<!--<div style="background-color: aqua">-->
-<!--  <router-outlet></router-outlet>-->
-<!--</div>-->
-<!--<app-about></app-about>-->
-<app-echarts></app-echarts>
-<app-echarts></app-echarts>
-<div class="left"></div>
-<div class="right">
-  <router-outlet></router-outlet>
+
+<!--顶部导航栏-->
+<mat-toolbar class="top-toolbar">
+  <button mat-icon-button class="example-icon" (click)="maindrawer.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>电影推荐系统</span>
+  <span class="example-spacer"></span>
+</mat-toolbar>
+
+<div class="div-toolbar-down">
+
 </div>
+
+<!--显示整体-->
+<!--左部导航栏-->
+<div class="div-main">
+  <mat-drawer-container class="mat-drawer-container" autosize>
+    <!--左部导航栏-->
+    <mat-drawer #maindrawer class="mat-drawer-sidenav" mode="side">
+      <div>
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <mat-icon class="icons">face</mat-icon>
+                普通用户功能
+              </mat-panel-title>
+              <mat-panel-description>
+                Traditional movie browsing and recommendation
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <p>Here you can browse personal information and movie information, as well as view movies recommended by the system.</p>
+            <div class="user-funciton-div">
+              <button mat-fab extended color="primary" routerLink="user-information">
+                <mat-icon>person</mat-icon>
+                个人信息
+              </button>
+              <mat-divider class="divider"></mat-divider>
+              <button mat-fab extended color="primary">
+                <mat-icon>movie_filter</mat-icon>
+                电影大全
+              </button>
+              <mat-divider class="divider"></mat-divider>
+              <button mat-fab extended color="primary">
+                <mat-icon>recommend</mat-icon>
+                电影推荐
+              </button>
+            </div>
+          </mat-expansion-panel>
+          <mat-expansion-panel *ngIf="isAdminer">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <mat-icon class="icons">shield_person</mat-icon>
+                管理员功能
+              </mat-panel-title>
+              <mat-panel-description>
+                Information management and result evaluation
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <p>Manage user and movie information, as well as evaluate the results of recommendation algorithms</p>
+            <div class="user-funciton-div">
+              <button mat-fab extended color="primary">
+                <mat-icon>manage_accounts</mat-icon>
+                用户信息管理
+              </button>
+              <mat-divider class="divider"></mat-divider>
+              <button mat-fab extended color="primary">
+                <mat-icon>movie_edit</mat-icon>
+                电影信息管理
+              </button>
+              <mat-divider class="divider"></mat-divider>
+              <button mat-fab extended color="primary">
+                <mat-icon>category</mat-icon>
+                电影关键词管理
+              </button>
+              <mat-divider class="divider"></mat-divider>
+              <button mat-fab extended color="primary">
+                <mat-icon>bar_chart</mat-icon>
+                推荐结果可视化
+              </button>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+
+    </mat-drawer>
+    <!--右部显示主区域-->
+    <div>
+      <!--用户状态栏-->
+      <mat-toolbar class="user-toolbar"></mat-toolbar>
+      <!--路由主区域-->
+      <div><router-outlet></router-outlet></div>
+    </div>
+  </mat-drawer-container>
+</div>
+
+
