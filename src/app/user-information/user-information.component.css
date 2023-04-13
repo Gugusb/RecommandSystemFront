@@ -1,6 +1,61 @@
 
-.body{
-  height: 10000px;
+.div-up{
+
+}
+
+.div-mid{
+  height: 20vh;
+}
+
+.div-down{
+  /*height: 100vh;*/
+}
+
+.card-div{
+  width: 100%;
+  padding-top: 60px;
+  padding-left: 20px;
+  padding-bottom: 10px;
+}
+
+.card-header-image {
+  height: 200px;
+  width: 200px;
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
+
+.card-header-title{
+  font-size: 100px;
+}
+
+.list-div{
+  padding-left: 30px;
+}
+
+.list-title{
+  padding-left: 30px;
+  padding-top: 50px;
+  font-size: 30px;
+}
+
+.list-item{
+  display: flex;
+  width: 90%;
+}
+
+.list-item-star{
+  display: flex;
+  position: absolute;
+  right: 40%;
+}
+
+.list-item-date{
+  position: absolute;
+  right: 10%;
+}
+
+.demo-paginator {
 }
 
 

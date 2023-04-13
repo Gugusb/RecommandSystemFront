@@ -1,2 +1,45 @@
-<p>user-information works!</p>
-<div class="body"></div>
+
+<div class="div-up">
+  <mat-card class="card-div">
+    <mat-card-header>
+      <div mat-card-avatar class="card-header-image"></div>
+      <mat-card-subtitle>个人资料</mat-card-subtitle>
+      <mat-card-title class="card-header-title">{{username}}</mat-card-title>
+      <mat-card-subtitle>评价过 {{movieCount}} 个电影</mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
+</div>
+
+<div class="div-down">
+  <div class="list-title">
+    <p>观影记录</p>
+  </div>
+  <div>
+    <mat-list class="list-div">
+      <mat-list-item *ngFor="let mwr of shownMovies">
+        <mat-icon matListItemIcon>movie</mat-icon>
+        <div class="list-item">
+          <div>{{mwr.name}}</div>
+          <div class="list-item-star">
+            <p>{{mwr.rate}}</p>
+            <mat-icon>star</mat-icon>
+          </div>
+          <div class="list-item-date">
+            <p>{{mwr.date}}</p>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    </mat-list>
+    <mat-paginator #paginator
+                   class="demo-paginator"
+                   [pageSize]="pageSize"
+                   (page)="handlePageEvent($event)"
+                   [length]="movieCount"
+                   [hidePageSize]="true"
+                   [showFirstLastButtons]="true"
+                   aria-label="Select page">
+    </mat-paginator>
+  </div>
+
+</div>

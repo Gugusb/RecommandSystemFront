@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
 import { EchartsComponent } from './echarts/echarts.component';
 import { NgxEchartsModule } from 'ngx-echarts';
@@ -18,6 +18,11 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatDividerModule} from "@angular/material/divider";
 import {MatExpansionModule} from "@angular/material/expansion";
 import { UserInformationComponent } from './user-information/user-information.component';
+import {MatCardModule} from "@angular/material/card";
+import {MatListModule} from "@angular/material/list";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import { MovieHomeComponent } from './movie-home/movie-home.component';
+import {MatSelectModule} from "@angular/material/select";
 
 
 @NgModule({
@@ -25,7 +30,8 @@ import { UserInformationComponent } from './user-information/user-information.co
     AppComponent,
     AboutComponent,
     EchartsComponent,
-    UserInformationComponent
+    UserInformationComponent,
+    MovieHomeComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +49,12 @@ import { UserInformationComponent } from './user-information/user-information.co
     MatIconModule,
     MatSidenavModule,
     MatDividerModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatCardModule,
+    MatListModule,
+    MatPaginatorModule,
+    MatSelectModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
