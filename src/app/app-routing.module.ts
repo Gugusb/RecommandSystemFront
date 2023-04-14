@@ -4,6 +4,9 @@ import {AboutComponent} from "./about/about.component";
 import {IndexRoutingModule} from "./index/index-routing.module";
 import {UserInformationComponent} from "./user-information/user-information.component";
 import {MovieHomeComponent} from "./movie-home/movie-home.component";
+import {RatingManageComponent} from "./rating-manage/rating-manage.component";
+import {MovieManageComponent} from "./movie-manage/movie-manage.component";
+import {MovieInformationComponent} from "./movie-information/movie-information.component";
 
 const routes: Routes = [
   {
@@ -17,6 +20,18 @@ const routes: Routes = [
   {
     path:'movie-home',
     component:MovieHomeComponent
+  },
+  {
+    path:'rating-manage',
+    component:RatingManageComponent
+  },
+  {
+    path:'movie-manage',
+    component:MovieManageComponent
+  },
+  {
+    path:'movie-information',
+    component:MovieInformationComponent
   },
   {
     path:'index',

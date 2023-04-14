@@ -2,8 +2,10 @@ import { Component } from '@angular/core';
 import {MovieWithRate} from "../user-information/user-information.component";
 import {PageEvent} from "@angular/material/paginator";
 import {FormControl} from "@angular/forms";
+import {ActivatedRoute} from "@angular/router";
 
 export interface MovieWithGenre {
+  id:number;
   name: string;
   rate: number;
   genre: String;
@@ -79,7 +81,7 @@ export class MovieHomeComponent {
     }
   ];
 
-  constructor() {
+  constructor(private route:ActivatedRoute) {
     this.movieCount = this.getMovieCount();
     this.shownMovies = this.getMovies(0, this.pageSize);
   }
@@ -99,6 +101,38 @@ export class MovieHomeComponent {
   }
 
   getMovies(index:number, size:number): MovieWithGenre[]{
-    return [];
+    return [
+      {
+        id:1,
+        name: "Movie1",
+        rate: 5,
+        genre: "无"
+      },
+      {
+        id:2,
+        name: "Movie2",
+        rate: 5,
+        genre: "无"
+      },
+      {
+        id:3,
+        name: "Movie3",
+        rate: 5,
+        genre: "无"
+      },
+      {
+        id:4,
+        name: "Movie4",
+        rate: 5,
+        genre: "无"
+      },
+      {
+        id:5,
+        name: "Movie5",
+        rate: 5,
+        genre: "无"
+      }
+    ];
   }
+
 }

@@ -37,7 +37,7 @@
   </div>
   <div>
     <mat-list class="list-div">
-      <mat-list-item *ngFor="let mwr of shownMovies">
+      <mat-list-item *ngFor="let mwr of shownMovies" routerLink="/movie-information" [queryParams]="{id:mwr.id}">
         <mat-icon matListItemIcon>movie</mat-icon>
         <div class="list-item">
           <div>{{mwr.name}}</div>

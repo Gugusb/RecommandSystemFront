@@ -23,6 +23,9 @@ import {MatListModule} from "@angular/material/list";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import { MovieHomeComponent } from './movie-home/movie-home.component';
 import {MatSelectModule} from "@angular/material/select";
+import { RatingManageComponent } from './rating-manage/rating-manage.component';
+import { MovieManageComponent } from './movie-manage/movie-manage.component';
+import { MovieInformationComponent } from './movie-information/movie-information.component';
 
 
 @NgModule({
@@ -31,7 +34,10 @@ import {MatSelectModule} from "@angular/material/select";
     AboutComponent,
     EchartsComponent,
     UserInformationComponent,
-    MovieHomeComponent
+    MovieHomeComponent,
+    RatingManageComponent,
+    MovieManageComponent,
+    MovieInformationComponent
   ],
   imports: [
     BrowserModule,
