@@ -1,0 +1,65 @@
+
+<div class="div-down">
+  <div class="list-title">
+    <p>电影管理</p>
+  </div>
+  <div>
+    <mat-expansion-panel class="expansion-panel-div" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon class="icons" class="mat-icon-css">settings</mat-icon>
+          高级选项
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <p>使用高级筛选，可以帮助直接查找指定ID的电影</p>
+      <mat-form-field class="select-sort">
+        <mat-label>输入目标电影ID</mat-label>
+        <input matInput type="number" [(ngModel)]="targetId">
+        <button *ngIf="targetId" matSuffix mat-icon-button aria-label="Clear" (click)="targetId=null">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+      <button mat-raised-button color="basic" class="search-button" (click)="search()">
+        <mat-icon>search</mat-icon>
+        查找
+      </button>
+    </mat-expansion-panel>
+  </div>
+  <div>
+    <mat-list class="list-div">
+      <mat-list-item>
+        <mat-icon matListItemIcon>apps</mat-icon>
+        <div class="list-item">
+          <div>#ID</div>
+          <div class="list-item-userid">电影名</div>
+        </div>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+      <mat-list-item *ngFor="let mwr of movies">
+        <mat-icon matListItemIcon>movie</mat-icon>
+        <div class="list-item">
+          <div>#{{mwr.id}}</div>
+          <div class="list-item-userid">{{mwr.name}}</div>
+          <button mat-raised-button color="basic" class="list-item-manage" (click)="manage()">
+            <mat-icon>settings</mat-icon>
+            管理
+          </button>
+          <button mat-raised-button color="basic" class="list-item-delete" (click)="delete(mwr.id)">
+            <mat-icon>delete</mat-icon>
+            删除
+          </button>
+        </div>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    </mat-list>
+    <mat-paginator #paginator
+                   [pageSize]="pageSize"
+                   (page)="handlePageEvent($event)"
+                   [length]="movieCount"
+                   [hidePageSize]="true"
+                   [showFirstLastButtons]="true"
+                   aria-label="Select page">
+    </mat-paginator>
+  </div>
+
+</div>

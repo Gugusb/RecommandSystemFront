@@ -1,0 +1,59 @@
+.list-div{
+  padding-left: 30px;
+}
+
+.list-title{
+  padding-left: 30px;
+  padding-top: 50px;
+  font-size: 30px;
+}
+
+.list-item{
+  display: flex;
+  width: 90%;
+}
+
+.list-item-userid{
+  position: absolute;
+  right: 70%;
+}
+
+.list-item-movieid{
+  position: absolute;
+  right: 50%;
+}
+
+.list-item-star{
+  display: flex;
+  position: absolute;
+  right: 30%;
+}
+
+.list-item-delete{
+  position: absolute;
+  right: 10%;
+}
+
+.list-item-date{
+  position: absolute;
+  right: 20%;
+}
+
+.expansion-panel-div{
+  margin-top: 30px;
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+.mat-icon-css{
+  padding-right: 10px;
+}
+
+.select-sort{
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+.search-button{
+  margin-bottom: 20px;
+}

@@ -1,0 +1,23 @@
+
+<div class="div-up">
+  <mat-card class="card-div">
+    <mat-card-header>
+      <div mat-card-avatar class="card-header-image"></div>
+      <mat-card-subtitle>电影</mat-card-subtitle>
+      <mat-card-title class="card-header-title">{{movieName}}</mat-card-title>
+      <mat-card-subtitle>{{movieGenre}}</mat-card-subtitle>
+      <mat-card-subtitle>有 {{ratingCount}} 人看过</mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
+</div>
+
+<div class="div-down">
+  <div class="list-title">
+    <p>评分统计</p>
+  </div>
+  <div class="rating-div">
+    <div echarts [options]="options" [merge]="mergeOptions" class="chart-div"></div>
+    <div class="avg-div"></div>
+  </div>
+
+</div>
