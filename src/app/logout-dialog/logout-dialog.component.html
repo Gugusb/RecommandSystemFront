@@ -1,0 +1,7 @@
+<div mat-dialog-content class="reg-div">
+  <p>Do you want to LOG OUT ?</p>
+</div>
+<div mat-dialog-actions class="button-div">
+  <button mat-button (click)="onNoClick()" class="no-button">No, pardon</button>
+  <button mat-button [mat-dialog-close]="true" class="sure-button" cdkFocusInitial>Sure</button>
+</div>
