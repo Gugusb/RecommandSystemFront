@@ -1,6 +1,5 @@
-
-
 <!--顶部导航栏-->
+
 <mat-toolbar class="top-toolbar">
   <button mat-icon-button class="example-icon" (click)="maindrawer.toggle()">
     <mat-icon>menu</mat-icon>
@@ -49,7 +48,7 @@
               </button>
             </div>
           </mat-expansion-panel>
-          <mat-expansion-panel *ngIf="isAdminer">
+          <mat-expansion-panel *ngIf="userstate?.isAdminer">
             <mat-expansion-panel-header>
               <mat-panel-title>
                 <mat-icon class="icons">shield_person</mat-icon>
@@ -84,7 +83,12 @@
     <!--右部显示主区域-->
     <div>
       <!--用户状态栏-->
-      <mat-toolbar class="user-toolbar"></mat-toolbar>
+      <mat-toolbar class="user-toolbar">
+        <mat-chip class="user-name-chip" (click)="userOpt()">
+          <img matChipAvatar src="https://material.angular.io/assets/img/examples/shiba1.jpg"/>
+          {{userstate?.userName}}
+        </mat-chip>
+      </mat-toolbar>
       <!--路由主区域-->
       <div><router-outlet></router-outlet></div>
     </div>

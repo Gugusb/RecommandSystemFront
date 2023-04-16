@@ -16,8 +16,11 @@
     <p>评分统计</p>
   </div>
   <div class="rating-div">
-    <div echarts [options]="options" [merge]="mergeOptions" class="chart-div"></div>
-    <div class="avg-div"></div>
+    <div echarts [options]="options" (chartInit)="onChartInit($event)" class="chart-div"></div>
+    <div class="avg-div">
+      <p>综合评分</p>
+      <p class="score">{{score}}</p>
+    </div>
   </div>
 
 </div>

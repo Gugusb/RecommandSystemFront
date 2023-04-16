@@ -56,3 +56,9 @@
   padding-right: 10px;
 }
 
+.user-name-chip{
+  display: flex;
+  position: fixed;
+  right: 1.8%;
+}
+

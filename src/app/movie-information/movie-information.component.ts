@@ -13,6 +13,8 @@ export class MovieInformationComponent {
   movieGenre: string | null = null;
   ratingCount: number | null = null;
   ratings: number[] = [];
+  score: string = "5.0";
+  echartsInst: any;
 
   initOpts = {
     renderer: 'svg',
@@ -21,7 +23,7 @@ export class MovieInformationComponent {
   };
 
   options: EChartsOption = {
-    color: ['#3398DB'],
+    color: ['#cb2579'],
     tooltip: {
       trigger: 'axis',
       axisPointer: {
@@ -50,11 +52,9 @@ export class MovieInformationComponent {
       name: '评分人数',
       type: 'bar',
       barWidth: '40%',
-      data: [50, 15, 15, 10, 10]
+      data: [57, 37, 26, 3, 31]
     }]
   };
-
-  mergeOptions: any;
 
   constructor(public route:ActivatedRoute) {
   }
@@ -69,8 +69,25 @@ export class MovieInformationComponent {
   initMovieData(id: number | null){
     this.movieName = "MovieName";
     this.movieGenre = "戏剧、悬疑"
-    this.ratingCount = 100;
-    this.ratings = [50, 15, 15, 10, 10];
+    this.ratingCount = 0;
+    this.ratings = [57, 37, 26, 3, 31];
+    let s: number = 0;
+    for(let i = 0;i < 5;i ++){
+      s += (5 - i) * (this.ratings[i]);
+      this.ratingCount += this.ratings[i];
+    }
+    this.score = (s / this.ratingCount).toFixed(1);
+  }
+
+  onChartInit(ec: any){
+    this.echartsInst = ec;
+  }
+
+  changeData(){
+    // @ts-ignore
+    this.options.series[0].data = [57, 37, 26, Math.random() * 100, 31];
+    this.echartsInst.setOption(this.options);
+    console.log(this.echartsInst);
   }
 
 }
