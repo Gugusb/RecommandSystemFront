@@ -1,0 +1,80 @@
+<mat-stepper #stepper class="mat-stepper-div">
+<!--  Step1.选择需要进行算法推荐的用户 如果是普通用户 默认为自己 如果为管理员 则可以任意添加目标用户 也可以随机生成-->
+  <mat-step [stepControl]="firstFormGroup" errorMessage="User ID is required.">
+    <form [formGroup]="firstFormGroup" class="step-div">
+      <ng-template matStepLabel>输入目标用户ID</ng-template>
+      <mat-form-field appearance="fill" class="example-form-field">
+        <mat-label>User ID</mat-label>
+        <mat-chip-grid #chipGrid aria-label="Enter keywords" [formControl]="formControl_step1" [disabled]="true">
+          <mat-chip-row *ngFor="let keyword of keywords" (removed)="removeKeyword(keyword)">
+            {{keyword}}
+            <button matChipRemove aria-label="'remove ' + keyword">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip-row>
+        </mat-chip-grid>
+        <input placeholder="New user..."
+               [matChipInputFor]="chipGrid"
+               (matChipInputTokenEnd)="add($event)"/>
+      </mat-form-field>
+      <p *ngIf="keywords.length>=5">
+        用户数量已到达最大值
+      </p>
+      <button mat-button matStepperNext class="button-back">Back</button>
+      <button mat-button matStepperNext class="button-next">Next</button>
+    </form>
+  </mat-step>
+<!--  Step2.选择需要进行推荐的算法-->
+  <mat-step [stepControl]="secondFormGroup" errorMessage="Algorithm is required.">
+    <form [formGroup]="secondFormGroup" class="step-div">
+      <ng-template matStepLabel>选择推荐算法</ng-template>
+      <section class="example-section" [formGroup]="toppings">
+        <h4>Select your algorithm:</h4>
+        <p><mat-checkbox formControlName="alg1">Alg1</mat-checkbox></p>
+        <p><mat-checkbox formControlName="alg2">Alg2</mat-checkbox></p>
+        <p><mat-checkbox formControlName="alg3">Alg3</mat-checkbox></p>
+        <p><mat-checkbox formControlName="alg4">Alg4</mat-checkbox></p>
+      </section>
+      <button mat-button matStepperNext class="button-back">Back</button>
+      <button mat-button matStepperNext class="button-next">Next</button>
+    </form>
+  </mat-step>
+<!--  Step3.输入数据集划分比例 有初始推荐值-->
+  <mat-step [stepControl]="thirdFormGroup" errorMessage="Rate is required.">
+    <form class="step-div">
+      <ng-template matStepLabel>选择测试/训练集划分比</ng-template>
+
+      <mat-form-field class="example-form-field">
+        <mat-label>训练集比例</mat-label>
+        <input matInput type="number" [(ngModel)]="rate" [ngModelOptions]="{standalone: true}">
+        <button *ngIf="rate" matSuffix mat-icon-button (click)="this.rate=0.8">
+          <mat-icon>refresh</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <button mat-button matStepperNext class="button-back">Back</button>
+      <button mat-button matStepperNext class="button-next">Next</button>
+    </form>
+  </mat-step>
+  Step4.【管理员选项】是否愿意使用CB算法进行兴趣值估算以提高算法性能评测的可信度
+  <mat-step [stepControl]="fourthFormGroup" errorMessage="Rate is required.">
+    <form [formGroup]="fourthFormGroup" class="step-div">
+      <ng-template matStepLabel>是否开启空值补偿</ng-template>
+      <p><mat-checkbox [formControl]="formControl_step4">开启空值补偿</mat-checkbox></p>
+      <p>*开启后，测试集中所有的空白数据均会使用基于内容推荐算法进行填充，系统保证填充结果的客观性和准确性</p>
+      <p>*该功能一般用于提升推荐算法结果测评的美观度，可能会导致计算速度较慢，请谨慎开启</p>
+      <button mat-button matStepperNext class="button-back">Back</button>
+      <button mat-button matStepperNext class="button-next">Next</button>
+    </form>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>结束</ng-template>
+    <p>你已经完成了算法配置环节，点击生成来获取你的推荐结果</p>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">生成</button>
+    </div>
+  </mat-step>
+
+</mat-stepper>

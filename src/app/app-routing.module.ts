@@ -7,6 +7,7 @@ import {MovieHomeComponent} from "./movie-home/movie-home.component";
 import {RatingManageComponent} from "./rating-manage/rating-manage.component";
 import {MovieManageComponent} from "./movie-manage/movie-manage.component";
 import {MovieInformationComponent} from "./movie-information/movie-information.component";
+import {MovieRecommendComponent} from "./movie-recommend/movie-recommend.component";
 
 const routes: Routes = [
   {
@@ -32,6 +33,10 @@ const routes: Routes = [
   {
     path:'movie-information',
     component:MovieInformationComponent
+  },
+  {
+    path:'movie-recommend',
+    component:MovieRecommendComponent
   },
   {
     path:'index',

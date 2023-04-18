@@ -42,7 +42,11 @@
                 电影大全
               </button>
               <mat-divider class="divider"></mat-divider>
-              <button mat-fab extended color="primary">
+              <button mat-fab extended color="primary" routerLink="movie-recommend"
+                      [queryParams]="{
+                      isAdminer: userstate?.isAdminer,
+                      userid: userstate?.userId
+                      }">
                 <mat-icon>recommend</mat-icon>
                 电影推荐
               </button>

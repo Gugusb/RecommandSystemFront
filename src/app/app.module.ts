@@ -31,6 +31,9 @@ import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import { RegisterDialogComponent } from './register-dialog/register-dialog.component';
 import { LogoutDialogComponent } from './logout-dialog/logout-dialog.component';
+import { MovieRecommendComponent } from './movie-recommend/movie-recommend.component';
+import {MatStepperModule} from "@angular/material/stepper";
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 
 @NgModule({
@@ -45,7 +48,8 @@ import { LogoutDialogComponent } from './logout-dialog/logout-dialog.component';
     MovieInformationComponent,
     LoginDialogComponent,
     RegisterDialogComponent,
-    LogoutDialogComponent
+    LogoutDialogComponent,
+    MovieRecommendComponent
   ],
   imports: [
     BrowserModule,
@@ -70,7 +74,9 @@ import { LogoutDialogComponent } from './logout-dialog/logout-dialog.component';
     MatSelectModule,
     ReactiveFormsModule,
     MatChipsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatStepperModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]

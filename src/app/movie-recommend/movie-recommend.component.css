@@ -1,0 +1,30 @@
+.mat-mdc-form-field {
+  margin-top: 16px;
+}
+
+.mat-stepper-div{
+  padding-top: 10vh;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.step-div{
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.button-back{
+  margin-left: 40%;
+}
+
+.example-form-field {
+  width: 100%;
+}
+
+.example-button-container > button {
+  margin: 0 12px;
+}
+
+.example-section {
+  margin: 12px 0;
+}
