@@ -7,7 +7,8 @@ import {RegisterDialogComponent} from "./register-dialog/register-dialog.compone
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json'
-  })
+  }),
+  withCredentials: true
 };
 
 export interface userState{
@@ -24,11 +25,11 @@ export interface loginData{
 
 export interface registerData{
   password:string;
-  username:string;
+  name:string;
   gender:number;
   age:number;
   occupation:number;
-  zipcode:string;
+  zipnode:string;
 }
 
 @Component({
@@ -37,7 +38,12 @@ export interface registerData{
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  userstate:userState | null = null;
+  userstate:userState = {
+    loginState :false,
+    isAdminer : false,
+    userId : 0,
+    userName : "UnLogin"
+  };
   showFiller = false;
   panelOpenState = true;
   title = 'rs_front';
@@ -75,24 +81,40 @@ export class AppComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.userLogin(result);
+      this.userRegister(result);
     });
   }
 
   userLogin(logindata: loginData){
-    // @ts-ignore
-    this.userstate.loginState = true;
-    // @ts-ignore
-    this.userstate.userName = "Gugusb";
-    // @ts-ignore
-    this.userstate.isAdminer = true;
-
-    console.log('Try login with' + logindata.id + " and password " + logindata.password);
+    this.http.post(this.myUrl + "/login",
+      {"id": logindata.id, "password": logindata.password},
+      httpOptions)
+      .subscribe(
+        (data) =>{
+          // @ts-ignore
+          if(data['status'] == 0){
+            this.userstate.loginState = true;
+            this.userstate.userName = "用户" + logindata.id;
+            if(logindata.id == 1){
+              this.userstate.isAdminer = true;
+            }
+          }
+        });
   }
 
   userRegister(regdata: registerData){
+    console.log('Try regist with' + regdata.name + " and password " + regdata.password + "and" + regdata.gender);
 
-    console.log('Try regist with' + regdata.username + " and password " + regdata.password);
+    this.http.post(this.myUrl + "/register",
+      regdata,
+      httpOptions)
+      .subscribe(
+        (data) =>{
+          // @ts-ignore
+          if(data['status'] == 0){
+            console.log("Register okk");
+          }
+        });
   }
 
   postData(){

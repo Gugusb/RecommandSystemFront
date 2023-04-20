@@ -1,0 +1,46 @@
+
+<div class="rating-div">
+  <p>推荐日志信息</p>
+  <p>日志编号 : {{teamno}}</p>
+  <p>目标用户ID : {{users}}</p>
+  <p>算法种类 : {{algtypes}}</p>
+  <p>是否开启补偿 : {{isCompensate}}</p>
+  <p>测试集划分比例 : {{divRate}}</p>
+  <p>创建时间 : {{date}}</p>
+</div>
+
+<div class="recall-div">
+  <mat-card class="card-div-1">
+    <mat-card-header>
+        <mat-card-subtitle class="card-header-title">召回率</mat-card-subtitle>
+    </mat-card-header>
+    <div echarts [options]="options_1" [merge]="mergeOptions_1" class="demo-chart"></div>
+  </mat-card>
+</div>
+
+<div class="precision-div">
+  <mat-card class="card-div-2">
+    <mat-card-header>
+      <mat-card-subtitle class="card-header-title">精确率</mat-card-subtitle>
+    </mat-card-header>
+    <div echarts [options]="options_1" [merge]="mergeOptions_2" class="demo-chart"></div>
+  </mat-card>
+</div>
+
+<div class="accuracy-div">
+  <mat-card class="card-div-3">
+    <mat-card-header>
+      <mat-card-subtitle class="card-header-title">正确率</mat-card-subtitle>
+    </mat-card-header>
+    <div echarts [options]="options_1" [merge]="mergeOptions_3" class="demo-chart"></div>
+  </mat-card>
+</div>
+
+<div class="avg-div">
+  <mat-card class="card-div-4">
+    <mat-card-header>
+      <mat-card-subtitle class="card-header-title">综合比较</mat-card-subtitle>
+    </mat-card-header>
+    <div echarts [options]="options_1" [merge]="mergeOptions_4" class="demo-chart"></div>
+  </mat-card>
+</div>

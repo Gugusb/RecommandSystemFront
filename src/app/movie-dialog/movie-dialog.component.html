@@ -1,0 +1,36 @@
+<div mat-dialog-content class="movie-div">
+  <p>电影信息修改</p>
+  <mat-form-field appearance="fill" class="id-div">
+    <mat-label>电影ID</mat-label>
+    <input matInput [(ngModel)]="movieinf.id" [disabled]="true">
+  </mat-form-field>
+  <mat-form-field appearance="fill" class="name-div">
+    <mat-label>电影名称</mat-label>
+    <input matInput [(ngModel)]="movieinf.name">
+  </mat-form-field>
+  <p></p>
+  <mat-form-field appearance="fill" class="tags-div">
+    <mat-label>电影标签管理</mat-label>
+    <mat-chip-grid #chipGrid aria-label="Enter keywords" [formControl]="formControl_step1">
+      <mat-chip-row *ngFor="let keyword of movieinf.genres" (removed)="removeKeyword(keyword)">
+        {{getGnereName(keyword)}}
+        <button matChipRemove aria-label="'remove ' + keyword">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip-row>
+      <mat-chip-row>
+        <button matChipRemove aria-label="Add" [matMenuTriggerFor]="menu">
+          <mat-icon>add_circle</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item *ngFor="let tag of s" (click)="add(tag.id)">{{tag.name}}</button>
+        </mat-menu>
+      </mat-chip-row>
+    </mat-chip-grid>
+    <input placeholder="New tags..."
+           [matChipInputFor]="chipGrid"/>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="movieinf" class="login-button" cdkFocusInitial>Login</button>
+</div>

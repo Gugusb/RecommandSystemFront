@@ -34,6 +34,11 @@ import { LogoutDialogComponent } from './logout-dialog/logout-dialog.component';
 import { MovieRecommendComponent } from './movie-recommend/movie-recommend.component';
 import {MatStepperModule} from "@angular/material/stepper";
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
+import { LogViewComponent } from './log-view/log-view.component';
+import { LogInformationComponent } from './log-information/log-information.component';
+import { MovieDialogComponent } from './movie-dialog/movie-dialog.component';
+import {MatMenuModule} from "@angular/material/menu";
 
 
 @NgModule({
@@ -49,7 +54,10 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     LoginDialogComponent,
     RegisterDialogComponent,
     LogoutDialogComponent,
-    MovieRecommendComponent
+    MovieRecommendComponent,
+    LogViewComponent,
+    LogInformationComponent,
+    MovieDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -76,7 +84,9 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     MatChipsModule,
     MatDialogModule,
     MatStepperModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatProgressBarModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

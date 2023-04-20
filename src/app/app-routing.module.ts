@@ -8,6 +8,8 @@ import {RatingManageComponent} from "./rating-manage/rating-manage.component";
 import {MovieManageComponent} from "./movie-manage/movie-manage.component";
 import {MovieInformationComponent} from "./movie-information/movie-information.component";
 import {MovieRecommendComponent} from "./movie-recommend/movie-recommend.component";
+import {LogViewComponent} from "./log-view/log-view.component";
+import {LogInformationComponent} from "./log-information/log-information.component";
 
 const routes: Routes = [
   {
@@ -37,6 +39,14 @@ const routes: Routes = [
   {
     path:'movie-recommend',
     component:MovieRecommendComponent
+  },
+  {
+    path:'log-view',
+    component:LogViewComponent
+  },
+  {
+    path:'log-information',
+    component:LogInformationComponent
   },
   {
     path:'index',

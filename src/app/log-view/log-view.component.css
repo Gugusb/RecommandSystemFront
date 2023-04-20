@@ -1,0 +1,48 @@
+.list-div{
+  padding-left: 30px;
+}
+
+.list-title{
+  padding-left: 30px;
+  padding-top: 50px;
+  font-size: 30px;
+}
+
+.list-item{
+  display: flex;
+  width: 90%;
+}
+
+.list-item-usercount{
+  position: absolute;
+  right: 35%;
+}
+
+.list-item-algcount{
+  position: absolute;
+  right: 10%;
+}
+
+.list-item-date{
+  position: absolute;
+  right: 60%;
+}
+
+.expansion-panel-div{
+  margin-top: 30px;
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+.mat-icon-css{
+  padding-right: 10px;
+}
+
+.select-sort{
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+.search-button{
+  margin-bottom: 20px;
+}

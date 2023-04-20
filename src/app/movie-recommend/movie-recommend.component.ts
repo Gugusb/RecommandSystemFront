@@ -13,6 +13,12 @@ export interface userState{
   userName:string;
 }
 
+export interface recommendMovie{
+  id:number;
+  name:string;
+  rate:number;
+}
+
 @Component({
   selector: 'app-movie-recommend',
   templateUrl: './movie-recommend.component.html',
@@ -26,11 +32,16 @@ export interface userState{
 })
 export class MovieRecommendComponent {
   keywords = [1];
+  isEditable:boolean = true;
   formControl_step1 = new FormControl({value: ['userid'], disabled : true});
-  formControl_step4 = new FormControl({value: ['rate'], disabled : true});
+  formControl_step4 = new FormControl({value: false, disabled : true});
   isAdminer:boolean = false;
   userId:number = 0;
   rate:number = 0.8;
+  isStart:boolean = false;
+  isFinish:boolean = false;
+  shownMovies:recommendMovie[] = [];
+  timer:any;
 
   toppings = this._formBuilder.group({
     alg1: {value: true, disabled: true},
@@ -38,6 +49,37 @@ export class MovieRecommendComponent {
     alg3: false,
     alg4: false,
   });
+
+  startRecommend(){
+    this.isStart = true;
+    this.isEditable = false;
+    this.isFinish = false;
+    this.timer = setInterval(()=>{
+      this.finishRecommend();
+    }, 1000 * 3);
+  }
+
+  finishRecommend(){
+    console.log("time finish");
+    clearInterval(this.timer);
+    this.timer = null;
+    this.shownMovies = this.getRecommendMovie();
+    this.isFinish = true;
+  }
+
+  getRecommendMovie():recommendMovie[]{
+    return [
+      {"name":"Movie1",
+        "rate":4.5,
+        "id":1},
+      {"name":"Movie2",
+        "rate":4.9,
+        "id":2},
+      {"name":"Movie3",
+        "rate":4.1,
+        "id":3},
+    ];
+  }
 
   removeKeyword(keyword: number) {
     const index = this.keywords.indexOf(keyword);
@@ -89,6 +131,7 @@ export class MovieRecommendComponent {
       if(this.isAdminer){
         console.log("enable ui");
         this.formControl_step1.enable();
+        this.formControl_step4.enable();
       }
     });
   }

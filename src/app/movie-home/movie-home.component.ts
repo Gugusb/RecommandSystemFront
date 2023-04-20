@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {MovieWithRate} from "../user-information/user-information.component";
 import {PageEvent} from "@angular/material/paginator";
 import {FormControl} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";

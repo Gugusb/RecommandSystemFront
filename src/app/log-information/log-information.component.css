@@ -1,0 +1,43 @@
+.rating-div{
+  padding-top: 6vh;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-bottom: 3vh;
+}
+
+.card-div-1{
+  width: 100%;
+  padding-top: 2vh;
+  padding-left: 20px;
+  padding-bottom: 10px;
+  background-color: #d3d3d3;
+}
+
+.card-div-2{
+  width: 100%;
+  padding-top: 2vh;
+  padding-left: 20px;
+  padding-bottom: 10px;
+  background-color: #989898;
+}
+
+.card-div-3{
+  width: 100%;
+  padding-top: 2vh;
+  padding-left: 20px;
+  padding-bottom: 10px;
+  background-color: #656565;
+}
+
+.card-div-4{
+  width: 100%;
+  padding-top: 2vh;
+  padding-left: 20px;
+  padding-bottom: 10px;
+  background-color: #ff91c8;
+}
+
+.card-header-title{
+  padding-left: 20px;
+  font-size: 30px;
+}

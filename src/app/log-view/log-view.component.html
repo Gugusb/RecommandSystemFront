@@ -1,0 +1,51 @@
+
+<div class="div-down">
+  <div class="list-title">
+    <p>推荐算法日志</p>
+  </div>
+  <div>
+    <mat-list class="list-div">
+      <mat-list-item>
+        <mat-icon matListItemIcon>data_thresholding</mat-icon>
+        <div class="list-item">
+          <div>日志编号</div>
+          <div class="list-item-date">
+            <p>创建时间</p>
+          </div>
+          <div class="list-item-usercount">
+            <p>用户数量</p>
+          </div>
+          <div class="list-item-algcount">
+            <p>算法数量</p>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+      <mat-list-item *ngFor="let mwr of shownTeams" routerLink="/log-information" [queryParams]="{id:mwr.id}">
+        <mat-icon matListItemIcon>data_thresholding</mat-icon>
+        <div class="list-item">
+          <div>{{mwr.teamno}}</div>
+          <div class="list-item-date">
+            <p>{{mwr.date}}</p>
+          </div>
+          <div class="list-item-usercount">
+            <p>{{mwr.usercount}}</p>
+          </div>
+          <div class="list-item-algcount">
+            <p>{{mwr.algcount}}</p>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    </mat-list>
+    <mat-paginator #paginator
+                   [pageSize]="pageSize"
+                   (page)="handlePageEvent($event)"
+                   [length]="teamCount"
+                   [hidePageSize]="true"
+                   [showFirstLastButtons]="true"
+                   aria-label="Select page">
+    </mat-paginator>
+  </div>
+
+</div>

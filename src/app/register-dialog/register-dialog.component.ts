@@ -2,11 +2,11 @@ import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 export interface registerData{
   password:string;
-  username:string;
+  name:string;
   gender:number|null;
   age:number|null;
   occupation:number|null;
-  zipcode:string;
+  zipnode:string;
 }
 @Component({
   selector: 'app-register-dialog',
@@ -16,11 +16,11 @@ export interface registerData{
 export class RegisterDialogComponent {
   registdata: registerData = {
     password:"",
-    username:"",
+    name:"",
     gender:null,
     age:null,
     occupation:null,
-    zipcode:""
+    zipnode:""
   }
 
   constructor(
