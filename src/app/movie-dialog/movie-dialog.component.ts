@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {FormControl} from "@angular/forms";
 import {number} from "echarts/core";
 import {MatChipInputEvent} from "@angular/material/chips";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 export interface MovieInf{
   id: number;
@@ -16,20 +17,26 @@ export interface MovieInf{
   styleUrls: ['./movie-dialog.component.css']
 })
 export class MovieDialogComponent {
+  myUrl = 'http://127.0.0.1:8037/movie';
   s = [
-    {id:1,name:"L1"},
-    {id:2,name:"L2"},
-    {id:3,name:"L3"},
-    {id:4,name:"L4"},
-    {id:5,name:"L5"},
-    {id:6,name:"L6"},
-    {id:7,name:"L7"},
-    {id:8,name:"L8"},
-    {id:9,name:"L9"},
-    {id:10,name:"L10"},
-    {id:11,name:"L11"},
-    {id:12,name:"L12"},
-    {id:13,name:"L13"},
+    {id:1,name:"Action"},
+    {id:2,name:"Adventure"},
+    {id:3,name:"Animation"},
+    {id:4,name:"Children"},
+    {id:5,name:"Comedy"},
+    {id:6,name:"Crime"},
+    {id:7,name:"Documentary"},
+    {id:8,name:"Drama"},
+    {id:9,name:"Fantasy"},
+    {id:10,name:"FilmNoir"},
+    {id:11,name:"Horror"},
+    {id:12,name:"Musical"},
+    {id:13,name:"Mystery"},
+    {id:14,name:"Romance"},
+    {id:15,name:"SciFi"},
+    {id:16,name:"Thriller"},
+    {id:17,name:"War"},
+    {id:18,name:"Western"},
   ];
   movieinf:MovieInf = {
     id : 0,
@@ -40,18 +47,38 @@ export class MovieDialogComponent {
 
 
   constructor(
+    private http : HttpClient,
     public dialogRef: MatDialogRef<MovieDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
     console.log(data);
     this.movieinf.id = data['id'];
     this.movieinf.name = data['name'];
-    this.movieinf.genres = data['genres'];
+    this.getGenres();
+  }
+
+  getGenres(){
+    this.http.post(this.myUrl + "/get_movie_genres",
+      {"id": 1},
+      {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json'
+        }),
+        withCredentials: true,
+        params: {
+          "movieId": this.movieinf.id
+        }
+      })
+      .subscribe(
+        (data) =>{
+          console.log(data);
+          // @ts-ignore
+          this.movieinf.genres = data['data'];
+        });
   }
 
   getGnereName(genreid:number){
-    let s = ["None", "L1", "L2", "L3", "L4", "L5", "L6", "L7", "L8", "L9", "L10", "L11", "L12", "L13",];
-    return s[genreid];
+    return this.s[genreid - 1].name;
   }
 
   removeKeyword(keyword: number) {

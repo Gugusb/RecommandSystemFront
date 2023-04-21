@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import { EChartsOption } from 'echarts';
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Component({
   selector: 'app-movie-information',
@@ -8,10 +9,11 @@ import { EChartsOption } from 'echarts';
   styleUrls: ['./movie-information.component.css']
 })
 export class MovieInformationComponent {
-  movieId:number | null = null;
+  myUrl = 'http://127.0.0.1:8037/movie';
+  movieId:any = null;
   movieName: string | null = null;
   movieGenre: string | null = null;
-  ratingCount: number | null = null;
+  ratingCount: number = 0;
   ratings: number[] = [];
   score: string = "5.0";
   echartsInst: any;
@@ -56,27 +58,59 @@ export class MovieInformationComponent {
     }]
   };
 
-  constructor(public route:ActivatedRoute) {
+  constructor(public route:ActivatedRoute, private http : HttpClient) {
   }
 
   ngOnInit() {
     this.route.queryParams.subscribe((res)=>{
       this.movieId = res['id'];
+      this.movieName = res['name'];
+      this.movieGenre = res['genre'];
       this.initMovieData(this.movieId);
     });
   }
 
-  initMovieData(id: number | null){
-    this.movieName = "MovieName";
-    this.movieGenre = "戏剧、悬疑"
-    this.ratingCount = 0;
-    this.ratings = [57, 37, 26, 3, 31];
-    let s: number = 0;
-    for(let i = 0;i < 5;i ++){
-      s += (5 - i) * (this.ratings[i]);
-      this.ratingCount += this.ratings[i];
+  initMovieData(id: number):void{
+    if(id == null || id == 0){
+      this.ratings = [57, 37, 26, 3, 31];
+      let s: number = 0;
+      for(let i = 0;i < 5;i ++){
+        s += (5 - i) * (this.ratings[i]);
+        this.ratingCount += this.ratings[i];
+      }
+      this.score = (s / this.ratingCount).toFixed(1);
+      return;
     }
-    this.score = (s / this.ratingCount).toFixed(1);
+    this.http.post(this.myUrl + "/search_movie_ratings",
+      {"id": 1},
+      {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json'
+        }),
+        withCredentials: true,
+        params: {
+          "movieId": id
+        }
+      })
+      .subscribe(
+        (data) =>{
+          console.log(data);
+          // @ts-ignore
+          for(let i = 0;i < 5;i ++){
+            // @ts-ignore
+            this.ratings.push(data['data'][i]);
+          }
+          console.log(this.ratings);
+          let s: number = 0;
+          for(let i = 0;i < 5;i ++){
+            s += (5 - i) * (this.ratings[i]);
+            this.ratingCount += this.ratings[i];
+          }
+          this.score = (s / this.ratingCount).toFixed(1);
+          // @ts-ignore
+          this.options.series[0].data = this.ratings;
+          this.echartsInst.setOption(this.options);
+        });
   }
 
   onChartInit(ec: any){

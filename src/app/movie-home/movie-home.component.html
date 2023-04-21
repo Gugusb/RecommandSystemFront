@@ -29,7 +29,7 @@
         </mat-select>
       </mat-form-field>
 
-      <button mat-raised-button color="basic" class="search-button">
+      <button mat-raised-button color="basic" class="search-button" (click)="search()">
         <mat-icon>search</mat-icon>
         查找
       </button>
@@ -37,7 +37,7 @@
   </div>
   <div>
     <mat-list class="list-div">
-      <mat-list-item *ngFor="let mwr of shownMovies" routerLink="/movie-information" [queryParams]="{id:mwr.id}">
+      <mat-list-item *ngFor="let mwr of shownMovies" routerLink="/movie-information" [queryParams]="{id:mwr.id, name:mwr.name, genre:mwr.genre}">
         <mat-icon matListItemIcon>movie</mat-icon>
         <div class="list-item">
           <div>{{mwr.name}}</div>

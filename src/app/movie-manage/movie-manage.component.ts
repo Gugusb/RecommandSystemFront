@@ -1,13 +1,8 @@
 import { Component } from '@angular/core';
 import {PageEvent} from "@angular/material/paginator";
-import {LoginDialogComponent} from "../login-dialog/login-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {MovieDialogComponent} from "../movie-dialog/movie-dialog.component";
-
-export interface Movie {
-  id: number;
-  name: string;
-}
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 export interface MovieInf{
   id: number;
@@ -21,79 +16,129 @@ export interface MovieInf{
   styleUrls: ['./movie-manage.component.css']
 })
 export class MovieManageComponent {
+  myUrl = 'http://127.0.0.1:8037/movie';
   pageIndex = 0;
   pageSize = 10;
-  movies : Movie[] = [];
+  movies : MovieInf[] = [];
   movieCount : number = 0;
   targetId: any;
   pageEvent: any;
 
-  constructor(public dialog: MatDialog) {
-    this.movieCount = this.getMovieCount();
-    this.movies = this.getMovies(0, this.pageSize, -1);
+  constructor(public dialog: MatDialog, private http : HttpClient) {
+    this.getMovies(0, this.pageSize, -1);
   }
 
   handlePageEvent(e: PageEvent) {
     this.pageEvent = e;
     this.pageIndex = e.pageIndex;
-    this.movies = this.getMovies(this.pageIndex, this.pageSize, -1);
+    this.getMovies(this.pageIndex, this.pageSize, -1);
   }
 
   delete(id:number) {
-    const newr: Movie[] = [];
+    const newr: MovieInf[] = [];
     for (let r of this.movies){
       if(r.id != id){
         newr.push(r);
       }
     }
     this.movies = newr;
+    this.http.post(this.myUrl + "/delete_movie",
+      {"id": 1},
+      {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json'
+        }),
+        withCredentials: true,
+        params: {
+          "movieId": id
+        }
+      })
+      .subscribe(
+        (data) =>{
+          console.log(data);
+        });
     return id;
   }
 
   search(){
-    this.movies = this.getMovies(0, this.pageSize, this.targetId);
+    this.getMovies(0, this.pageSize, this.targetId);
   }
 
-  manage(id:number){
-    let movieinf = this.getMovieById(id);
+  manage(movieinf:MovieInf){
     const dialogRef = this.dialog.open(MovieDialogComponent, {
       data: movieinf,
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
+      if(result != null){
+        this.updateData(result);
+      }
     });
   }
 
-  getMovieCount():number{
-    return 100;
+  updateData(data:any){
+    if(data['genres'].length == 0){
+      data['genres'] = [-1];
+    }
+    if(data['name'] == null){
+      data['name'] = "null";
+    }
+    this.http.post(this.myUrl + "/change_movie_inf",
+      {"id": 1},
+      {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json'
+        }),
+        withCredentials: true,
+        params: {
+          "movieId": data['id'],
+          "newName": data['name'],
+          "newGenres": data['genres']
+        }
+      })
+      .subscribe(
+        (data) =>{
+          console.log(data);
+        });
   }
 
-  getMovieById(id:number){
-    return {
-      id:id,
-      name:"MovieSoCool",
-      genres:[1, 2, 5, 11]
-    };
-  }
+  getMovies(index:number, size:number, tarId:number){
 
-  getMovies(index:number, size:number, tarId:number): Movie[]{
-    return [
+    if(tarId == null){
+      tarId = 0;
+    }
+    console.log(tarId)
+    this.http.post(this.myUrl + "/search_movies",
+      {"id": 1},
       {
-        id: 1,
-        name: "Movie1"
-      },
-      {
-        id: 2,
-        name: "Movie2"
-      },
-      {
-        id: 3,
-        name: "Movie3"
-      },
-      {
-        id: 4523,
-        name: "Movie4"
-      }
-    ];
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json'
+        }),
+        withCredentials: true,
+        params: {
+          "page": index,
+          "size": size,
+          "movieId": tarId
+        }
+      })
+      .subscribe(
+        (data) =>{
+          console.log(data);
+          this.movies = [];
+          // @ts-ignore
+          this.movieCount = data['data']['totalElements'];
+          // @ts-ignore
+          for(let i = 0;i < data['data']['content'].length;i ++){
+            this.movies[i] = {
+              // @ts-ignore
+              name:data['data']['content'][i]['title'],
+              // @ts-ignore
+              id:data['data']['content'][i]['id'],
+              // @ts-ignore
+              genres:data['data']['content'][i]['genres']
+            }
+          }
+
+        });
   }
 }
