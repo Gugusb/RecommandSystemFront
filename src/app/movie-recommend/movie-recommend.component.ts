@@ -5,6 +5,7 @@ import {MatChipInputEvent} from '@angular/material/chips';
 import {AppComponent} from "../app.component";
 import {ActivatedRoute} from "@angular/router";
 import {number} from "echarts/core";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 export interface userState{
   loginState:boolean;
@@ -31,6 +32,7 @@ export interface recommendMovie{
   ]
 })
 export class MovieRecommendComponent {
+  myUrl = 'http://127.0.0.1:8037/recommend';
   keywords = [1];
   isEditable:boolean = true;
   formControl_step1 = new FormControl({value: ['userid'], disabled : true});
@@ -40,6 +42,8 @@ export class MovieRecommendComponent {
   rate:number = 0.8;
   isStart:boolean = false;
   isFinish:boolean = false;
+  otherRes:boolean = false;
+  otherres = "";
   shownMovies:recommendMovie[] = [];
   timer:any;
 
@@ -63,11 +67,70 @@ export class MovieRecommendComponent {
     console.log("time finish");
     clearInterval(this.timer);
     this.timer = null;
-    this.shownMovies = this.getRecommendMovie();
-    this.isFinish = true;
+    this.getRecommendMovie();
   }
 
   getRecommendMovie():recommendMovie[]{
+    //用户ID
+    let users = this.keywords;
+    //电影类型
+    let algs = [this.toppings.controls.alg1.value, this.toppings.controls.alg2.value, this.toppings.controls.alg3.value, this.toppings.controls.alg4.value];
+    //Compensate参
+    let isCompensate = this.formControl_step4.value;
+    //Rate参
+    let rate = this.rate;
+    console.log(users + " " + algs + " " + isCompensate + " " + rate);
+
+    this.http.post(this.myUrl + "/recommend",
+      {"id": 1},
+      {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json'
+        }),
+        withCredentials: true,
+        params: {
+          "users": users,
+          // @ts-ignore
+          "algBooleans": algs!,
+          "isCompensate": isCompensate!,
+          "rate": rate
+        }
+      })
+      .subscribe(
+        (data) =>{
+          console.log(data);
+          this.isFinish = true;
+          // @ts-ignore
+          if(data['status'] == 0){
+            // @ts-ignore
+            if(!Array.isArray(data['data'])){
+              this.otherRes = true;
+              // @ts-ignore
+              this.otherres = data['data'];
+            }else{
+              // @ts-ignore
+              for(let i = 0;i < data['data'][0].length;i ++){
+                this.shownMovies.push({
+                  "name": "",
+                  // @ts-ignore
+                  "rate": data['data'][0][i]['rate'],
+                  // @ts-ignore
+                  "id": data['data'][0][i]['movieId']
+                });
+              }
+              // @ts-ignore
+              for(let i = 0;i < data['data'][1].length;i ++){
+                // @ts-ignore
+                this.shownMovies[i].name = data['data'][1][i];
+              }
+            }
+          }else{
+            this.otherRes = true;
+            // @ts-ignore
+            this.otherres = data['message'];
+          }
+        });
+
     return [
       {"name":"Movie1",
         "rate":4.5,
@@ -115,7 +178,7 @@ export class MovieRecommendComponent {
     secondCtrl: [' ', Validators.required],
   });
 
-  constructor(private _formBuilder: FormBuilder, public route:ActivatedRoute) {
+  constructor(private _formBuilder: FormBuilder, public route:ActivatedRoute, private http : HttpClient) {
   }
 
   ngOnInit() {

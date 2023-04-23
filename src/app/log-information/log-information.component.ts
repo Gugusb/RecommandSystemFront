@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {EChartsOption} from "echarts";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 export interface algLog{
   logno:number;
@@ -11,13 +12,22 @@ export interface algLog{
   accuracy:number;
 }
 
+export interface logTeam{
+  id:number;
+  teamno:number;
+  date:string;
+  usercount:number;
+  algcount:number;
+}
+
 @Component({
   selector: 'app-log-information',
   templateUrl: './log-information.component.html',
   styleUrls: ['./log-information.component.css']
 })
 export class LogInformationComponent {
-  teamid:number|null = null;
+  myUrl = 'http://127.0.0.1:8037/log';
+  teamid:number = 0;
   teamno:number|null = null;
   users:number[] = [];
   algtypes:number[] = [];
@@ -293,48 +303,89 @@ export class LogInformationComponent {
     return res;
   }
 
-  constructor(public route:ActivatedRoute) {
+  constructor(public route:ActivatedRoute, private http : HttpClient) {
   }
 
   ngOnInit() {
+    // @ts-ignore
     this.route.queryParams.subscribe((res)=>{
       this.teamid = res['id'];
-      this.logs = this.getLogs();
+      this.getLogs();
       this.getLogTeamInf();
-      console.log(this.createDataForRecall())
-      this.resetData_1();
-      this.resetData_2();
-      this.resetData_3();
-      this.resetData_4();
     });
   }
 
   getLogTeamInf(){
-    this.teamno = 165;
-    this.users = [1, 2, 3, 4, 5];
-    this.algtypes = [1, 2, 3, 4];
-    this.isCompensate = true;
-    this.divRate = 0.8;
-    this.date = this.timestampToTime(123456789111);
+    this.http.post(this.myUrl + "/get_logteam_inf",
+      {"id": 1},
+      {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json'
+        }),
+        withCredentials: true,
+        params: {
+          "teamId": this.teamid
+        }
+      })
+      .subscribe(
+        (data) =>{
+          // @ts-ignore
+          this.teamno = data['data']['teamno'];
+          // @ts-ignore
+          this.date = this.timestampToTime(data['data']['time']);
+        });
   }
 
-  getLogs():algLog[]{
-    let res:any[] = [];
-    let count = 0;
-    for(let i = 1;i <= 5;i ++){
-      for(let j = 1;j <= 4;j ++){
-        count ++;
-        res.push({
-          logno:count,
-          userid:i,
-          algtype:j,
-          recall:Math.random(),
-          precision:Math.random(),
-          accuracy:Math.random(),
+  getLogs(){
+    this.http.post(this.myUrl + "/get_logs",
+      {"id": 1},
+      {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json'
+        }),
+        withCredentials: true,
+        params: {
+          "teamId": this.teamid
+        }
+      })
+      .subscribe(
+        (data) =>{
+          this.users = [];
+          // @ts-ignore
+          for(let i = 0;i < data['data'][0].length;i ++){
+            // @ts-ignore
+            this.users.push(data['data'][0][i]);
+          }
+          this.algtypes = [];
+          // @ts-ignore
+          for(let i = 0;i < data['data'][1].length;i ++){
+            // @ts-ignore
+            this.algtypes.push(data['data'][1][i]);
+          }
+          this.logs = [];
+          // @ts-ignore
+          for(let i = 0;i < data['data'][2].length;i ++){
+            this.logs.push({
+              // @ts-ignore
+              logno:data['data'][2][i]['id'],
+              // @ts-ignore
+              userid:data['data'][2][i]['userid'],
+              // @ts-ignore
+              algtype:data['data'][2][i]['algtype'],
+              // @ts-ignore
+              recall:data['data'][2][i]['recall'],
+              // @ts-ignore
+              precision:data['data'][2][i]['precision'],
+              // @ts-ignore
+              accuracy:data['data'][2][i]['accuracy'],
+            });
+          }
+          console.log(this.createDataForRecall());
+          this.resetData_1();
+          this.resetData_2();
+          this.resetData_3();
+          this.resetData_4();
         });
-      }
-    }
-    return res;
   }
 
   timestampToTime(timestamp: number):string {

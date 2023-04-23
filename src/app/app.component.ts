@@ -47,7 +47,7 @@ export class AppComponent {
   showFiller = false;
   panelOpenState = true;
   title = 'rs_front';
-  myUrl = 'http://127.0.0.1:8036/user';
+  myUrl = 'http://127.0.0.1:8037/user';
   constructor(private http : HttpClient, public dialog: MatDialog) {
     this.userstate = {
       loginState: false,
@@ -93,6 +93,7 @@ export class AppComponent {
         (data) =>{
           // @ts-ignore
           if(data['status'] == 0){
+            this.userstate.userId = logindata.id;
             this.userstate.loginState = true;
             this.userstate.userName = "用户" + logindata.id;
             if(logindata.id == 1){

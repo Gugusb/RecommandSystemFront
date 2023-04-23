@@ -21,7 +21,7 @@ export interface MovieWithRate {
   styleUrls: ['./user-information.component.css']
 })
 export class UserInformationComponent {
-  myUrl = 'http://127.0.0.1:8036/user';
+  myUrl = 'http://127.0.0.1:8037/user';
   username : String;
   pageIndex = 0;
   pageSize = 10;

@@ -72,6 +72,13 @@ export class MovieManageComponent {
       console.log(result);
       if(result != null){
         this.updateData(result);
+        for(let i = 0;i < this.movies.length;i ++){
+          if(this.movies[i].id == movieinf.id){
+            this.movies[i].name = result['name'];
+            this.movies[i].genres = result['genres'];
+            break;
+          }
+        }
       }
     });
   }

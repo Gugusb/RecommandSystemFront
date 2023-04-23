@@ -32,11 +32,11 @@
     <form [formGroup]="secondFormGroup" class="step-div">
       <ng-template matStepLabel>选择推荐算法</ng-template>
       <section class="example-section" [formGroup]="toppings">
-        <h4>Select your algorithm:</h4>
-        <p><mat-checkbox formControlName="alg1">Alg1</mat-checkbox></p>
-        <p><mat-checkbox formControlName="alg2">Alg2</mat-checkbox></p>
-        <p><mat-checkbox formControlName="alg3">Alg3</mat-checkbox></p>
-        <p><mat-checkbox formControlName="alg4">Alg4</mat-checkbox></p>
+        <h4>选择你想使用的推荐算法:</h4>
+        <p><mat-checkbox formControlName="alg1">基于内容的推荐算法</mat-checkbox></p>
+        <p><mat-checkbox formControlName="alg2">基于用户的协同过滤算法</mat-checkbox></p>
+        <p><mat-checkbox formControlName="alg3">基于物品的协同过滤算法</mat-checkbox></p>
+        <p><mat-checkbox formControlName="alg4">混合推荐算法</mat-checkbox></p>
       </section>
       <button mat-button matStepperNext class="button-back">Back</button>
       <button mat-button matStepperNext class="button-next">Next</button>
@@ -87,7 +87,13 @@
 
 </mat-stepper>
 
-<div *ngIf="isFinish">
+<div *ngIf="isFinish && otherRes == true">
+  <div class="list-title">
+    <p>{{otherres}}</p>
+  </div>
+</div>
+
+<div *ngIf="isFinish && otherRes == false">
   <div class="list-title">
     <p>向你推荐</p>
   </div>
