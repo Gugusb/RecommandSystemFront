@@ -259,7 +259,7 @@ export class LogInformationComponent {
     res.push(b);
     //数据行-正确率
     let c : any[] = [];
-    c.push('正确率');
+    c.push('准确率');
     for(let i = 0;i < this.algtypes.length;i ++){
       let algtype = this.algtypes[i];
       c.push(this.getRorPorA(algtype, 3));

@@ -1,0 +1,9 @@
+.login-div{
+  display: flow;
+  width: 300px;
+}
+.login-button{
+  display: flex;
+  position: fixed;
+  right: 48%;
+}

@@ -62,3 +62,9 @@
   right: 1.8%;
 }
 
+.reg-chip{
+  display: flex;
+  position: fixed;
+  right: 8.8%;
+}
+

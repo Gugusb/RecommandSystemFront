@@ -1,40 +1,40 @@
 <div mat-dialog-content class="reg-div">
-  <p>User Register</p>
+  <p>用户注册</p>
 
   <mat-form-field appearance="fill">
-    <mat-label>Your Name</mat-label>
+    <mat-label>用户名</mat-label>
     <input matInput [(ngModel)]="registdata.name">
   </mat-form-field>
 
   <mat-form-field appearance="fill">
-    <mat-label>Your Password</mat-label>
+    <mat-label>密码</mat-label>
     <input matInput [(ngModel)]="registdata.password">
   </mat-form-field>
   <p></p>
 
   <mat-form-field appearance="fill">
-    <mat-label>Your Gender</mat-label>
+    <mat-label>性别</mat-label>
     <input matInput [(ngModel)]="registdata.gender">
   </mat-form-field>
 
   <mat-form-field appearance="fill">
-    <mat-label>Your Age</mat-label>
+    <mat-label>年龄</mat-label>
     <input matInput [(ngModel)]="registdata.age">
   </mat-form-field>
   <p></p>
 
   <mat-form-field appearance="fill">
-    <mat-label>Your Occupation</mat-label>
+    <mat-label>职业</mat-label>
     <input matInput [(ngModel)]="registdata.occupation">
   </mat-form-field>
   <p></p>
 
   <mat-form-field appearance="fill">
-    <mat-label>Your Zipcode</mat-label>
+    <mat-label>邮编</mat-label>
     <input matInput [(ngModel)]="registdata.zipnode">
   </mat-form-field>
 
 </div>
 <div mat-dialog-actions>
-  <button mat-button [mat-dialog-close]="registdata" class="reg-button" cdkFocusInitial>Login</button>
+  <button mat-button [mat-dialog-close]="registdata" class="reg-button" cdkFocusInitial>完成注册</button>
 </div>

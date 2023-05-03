@@ -7,6 +7,8 @@
       <mat-card-title class="card-header-title">{{movieName}}</mat-card-title>
       <mat-card-subtitle>{{movieGenre}}</mat-card-subtitle>
     </mat-card-header>
+    <p>{{ratingMessage}}</p>
+    <button mat-fab extended color="primary" (click)="openRatingDialog()">打分</button>
   </mat-card>
 </div>
 

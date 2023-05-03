@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {LoginDialogComponent} from "./login-dialog/login-dialog.component";
 import {RegisterDialogComponent} from "./register-dialog/register-dialog.component";
+import {LogoutDialogComponent} from "./logout-dialog/logout-dialog.component";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -55,14 +56,37 @@ export class AppComponent {
       userId: 0,
       userName: "UnLogin"
     }
+    //检查登陆状态
+    this.http.post(this.myUrl + "/check_state",
+      {},
+      httpOptions)
+      .subscribe(
+        (data) =>{
+          // @ts-ignore
+          if(data['status'] == 0){
+            // @ts-ignore
+            let rid = data['data'];
+            console.log("" + rid + "再登录成功！");
+            this.userstate.userId = rid;
+            this.userstate.loginState = true;
+            this.userstate.userName = "用户" + rid;
+            if(rid == 1){
+              this.userstate.isAdminer = true;
+            }
+          }
+        });
   }
 
   userOpt(){
     if(this.userstate?.loginState == false){
       this.openLoginDialog();
     }else{
-      this.openRegistDialog();
+      this.openLoginOutDialog();
     }
+  }
+
+  regOpt(){
+    this.openRegistDialog();
   }
 
   openLoginDialog(): void {
@@ -71,7 +95,21 @@ export class AppComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.userLogin(result);
+      if(result != null){
+        this.userLogin(result);
+      }
+    });
+  }
+
+  openLoginOutDialog(): void {
+    const dialogRef = this.dialog.open(LogoutDialogComponent, {
+      data: null,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result != null){
+        this.userLogout(result);
+      }
     });
   }
 
@@ -81,7 +119,9 @@ export class AppComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.userRegister(result);
+      if(result != null){
+        this.userRegister(result);
+      }
     });
   }
 
@@ -100,6 +140,19 @@ export class AppComponent {
               this.userstate.isAdminer = true;
             }
           }
+        });
+  }
+
+  userLogout(logindata: loginData){
+    this.http.post(this.myUrl + "/logout",
+      {},
+      httpOptions)
+      .subscribe(
+        (data) =>{
+          this.userstate.userId = 0;
+          this.userstate.loginState = false;
+          this.userstate.userName = "未登录";
+          this.userstate.isAdminer = false;
         });
   }
 

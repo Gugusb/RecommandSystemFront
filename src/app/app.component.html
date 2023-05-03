@@ -27,12 +27,12 @@
                 普通用户功能
               </mat-panel-title>
               <mat-panel-description>
-                Traditional movie browsing and recommendation
+                传统的电影浏览以及电影推荐
               </mat-panel-description>
             </mat-expansion-panel-header>
-            <p>Here you can browse personal information and movie information, as well as view movies recommended by the system.</p>
+            <p>浏览所有的电影信息，查看自己的观影记录，以及实用的电影推荐功能.</p>
             <div class="user-funciton-div">
-              <button mat-fab extended color="primary" routerLink="user-information">
+              <button *ngIf="this.userstate.loginState" mat-fab extended color="primary" routerLink="user-information">
                 <mat-icon>person</mat-icon>
                 个人信息
               </button>
@@ -42,7 +42,7 @@
                 电影大全
               </button>
               <mat-divider class="divider"></mat-divider>
-              <button mat-fab extended color="primary" routerLink="movie-recommend"
+              <button *ngIf="this.userstate.loginState" mat-fab extended color="primary" routerLink="movie-recommend"
                       [queryParams]="{
                       isAdminer: userstate?.isAdminer,
                       userid: userstate?.userId
@@ -59,10 +59,10 @@
                 管理员功能
               </mat-panel-title>
               <mat-panel-description>
-                Information management and result evaluation
+                信息管理和推荐结果可视化
               </mat-panel-description>
             </mat-expansion-panel-header>
-            <p>Manage user and movie information, as well as evaluate the results of recommendation algorithms</p>
+            <p>管理用户，电影以及评价信息；同时也可以更加直观地浏览推荐结果的各项性能</p>
             <div class="user-funciton-div">
               <button mat-fab extended color="primary" routerLink="rating-manage">
                 <mat-icon>manage_accounts</mat-icon>
@@ -88,6 +88,9 @@
     <div>
       <!--用户状态栏-->
       <mat-toolbar class="user-toolbar">
+        <mat-chip class="reg-chip" (click)="regOpt()">
+          <mat-icon>app_registration</mat-icon>
+        </mat-chip>
         <mat-chip class="user-name-chip" (click)="userOpt()">
           <img matChipAvatar src="https://material.angular.io/assets/img/examples/shiba1.jpg"/>
           {{userstate?.userName}}

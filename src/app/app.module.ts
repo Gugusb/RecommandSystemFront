@@ -39,6 +39,8 @@ import { LogViewComponent } from './log-view/log-view.component';
 import { LogInformationComponent } from './log-information/log-information.component';
 import { MovieDialogComponent } from './movie-dialog/movie-dialog.component';
 import {MatMenuModule} from "@angular/material/menu";
+import { RatingDialogComponent } from './rating-dialog/rating-dialog.component';
+import { ExitDialogComponent } from './exit-dialog/exit-dialog.component';
 
 
 @NgModule({
@@ -57,7 +59,9 @@ import {MatMenuModule} from "@angular/material/menu";
     MovieRecommendComponent,
     LogViewComponent,
     LogInformationComponent,
-    MovieDialogComponent
+    MovieDialogComponent,
+    RatingDialogComponent,
+    ExitDialogComponent
   ],
   imports: [
     BrowserModule,

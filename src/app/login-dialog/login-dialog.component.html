@@ -1,15 +1,15 @@
 <div mat-dialog-content class="login-div">
-  <p>User Login</p>
+  <p>用户登入</p>
   <mat-form-field appearance="fill">
-    <mat-label>Your User Id</mat-label>
+    <mat-label>用户ID</mat-label>
     <input matInput [(ngModel)]="logindata.id">
   </mat-form-field>
   <p></p>
   <mat-form-field appearance="fill">
-    <mat-label>Your Password</mat-label>
+    <mat-label>密码</mat-label>
     <input matInput [(ngModel)]="logindata.password">
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button mat-button [mat-dialog-close]="logindata" class="login-button" cdkFocusInitial>Login</button>
+  <button mat-button [mat-dialog-close]="logindata" class="login-button" cdkFocusInitial>登入</button>
 </div>

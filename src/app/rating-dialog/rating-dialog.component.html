@@ -1,0 +1,18 @@
+<div mat-dialog-content class="login-div">
+  <p>电影评价</p>
+  <mat-form-field appearance="fill">
+  <mat-label>你对该电影的评价是：</mat-label>
+  <mat-select [(value)]="rating">
+    <mat-option>None</mat-option>
+    <mat-option value=1>1分</mat-option>
+    <mat-option value=2>2分</mat-option>
+    <mat-option value=3>3分</mat-option>
+    <mat-option value=4>4分</mat-option>
+    <mat-option value=5>5分</mat-option>
+  </mat-select>
+  </mat-form-field>
+  <p></p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="rating" class="login-button" cdkFocusInitial>更新评价</button>
+</div>
