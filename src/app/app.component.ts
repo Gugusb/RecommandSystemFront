@@ -20,6 +20,7 @@ export interface userState{
 }
 
 export interface loginData{
+  name:string;
   id:number;
   password:string;
 }
@@ -126,17 +127,28 @@ export class AppComponent {
   }
 
   userLogin(logindata: loginData){
-    this.http.post(this.myUrl + "/login",
-      {"id": logindata.id, "password": logindata.password},
-      httpOptions)
+    this.http.post(this.myUrl + "/login2",
+      {},
+      {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json'
+        }),
+        withCredentials: true,
+        params: {
+          "userName": logindata.name,
+          "password": logindata.password
+        }
+      })
       .subscribe(
         (data) =>{
           // @ts-ignore
           if(data['status'] == 0){
-            this.userstate.userId = logindata.id;
+            // @ts-ignore
+            let uid = data['data']
+            this.userstate.userId = uid;
             this.userstate.loginState = true;
-            this.userstate.userName = "用户" + logindata.id;
-            if(logindata.id == 1){
+            this.userstate.userName = "用户" + uid;
+            if(uid == 1){
               this.userstate.isAdminer = true;
             }
           }

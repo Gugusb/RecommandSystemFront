@@ -43,9 +43,14 @@ export class MovieRecommendComponent {
   isStart:boolean = false;
   isFinish:boolean = false;
   otherRes:boolean = false;
+  isNewUser = false;
   otherres = "";
   shownMovies:recommendMovie[] = [];
   timer:any;
+
+  //新人选择标签
+  formControl_tags = new FormControl(['genres']);
+  genres = []
 
   toppings = this._formBuilder.group({
     alg1: {value: true, disabled: true},
@@ -93,7 +98,8 @@ export class MovieRecommendComponent {
           // @ts-ignore
           "algBooleans": algs!,
           "isCompensate": isCompensate!,
-          "rate": rate
+          "rate": rate,
+          "genres": this.genres
         }
       })
       .subscribe(
@@ -164,6 +170,44 @@ export class MovieRecommendComponent {
     event.chipInput!.clear();
   }
 
+  removeTag(keyword: number) {
+    // @ts-ignore
+    const index = this.genres.indexOf(keyword);
+    if (index >= 0) {
+      this.genres.splice(index, 1);
+    }
+  }
+
+  addTag(id:number): void {
+    // @ts-ignore
+    this.genres.push(Number(id));
+  }
+
+  s = [
+    {id:1,name:"Action"},
+    {id:2,name:"Adventure"},
+    {id:3,name:"Animation"},
+    {id:4,name:"Children"},
+    {id:5,name:"Comedy"},
+    {id:6,name:"Crime"},
+    {id:7,name:"Documentary"},
+    {id:8,name:"Drama"},
+    {id:9,name:"Fantasy"},
+    {id:10,name:"FilmNoir"},
+    {id:11,name:"Horror"},
+    {id:12,name:"Musical"},
+    {id:13,name:"Mystery"},
+    {id:14,name:"Romance"},
+    {id:15,name:"SciFi"},
+    {id:16,name:"Thriller"},
+    {id:17,name:"War"},
+    {id:18,name:"Western"},
+  ];
+
+  getGnereName(genreid:number){
+    return this.s[genreid - 1].name;
+  }
+
 
   firstFormGroup = this._formBuilder.group({
     firstCtrl: [' ', Validators.required],
@@ -177,6 +221,9 @@ export class MovieRecommendComponent {
   fourthFormGroup = this._formBuilder.group({
     secondCtrl: [' ', Validators.required],
   });
+  fifthFormGroup = this._formBuilder.group({
+    secondCtrl: [' ', Validators.required],
+  });
 
   constructor(private _formBuilder: FormBuilder, public route:ActivatedRoute, private http : HttpClient) {
   }
@@ -185,6 +232,9 @@ export class MovieRecommendComponent {
     this.route.queryParams.subscribe((res)=>{
       this.userId = Number(res['userid']);
       this.keywords = [this.userId];
+      if(this.userId > 5500){
+        this.isNewUser = true;
+      }
 
       if(res['isAdminer'] == "true"){
         this.isAdminer = true;

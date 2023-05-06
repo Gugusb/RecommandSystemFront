@@ -28,7 +28,7 @@
     </form>
   </mat-step>
 <!--  Step2.选择需要进行推荐的算法-->
-  <mat-step [stepControl]="secondFormGroup" errorMessage="Algorithm is required." [editable]="isEditable">
+  <mat-step *ngIf="!isNewUser" [stepControl]="secondFormGroup" errorMessage="Algorithm is required." [editable]="isEditable">
     <form [formGroup]="secondFormGroup" class="step-div">
       <ng-template matStepLabel>选择推荐算法</ng-template>
       <section class="example-section" [formGroup]="toppings">
@@ -42,8 +42,36 @@
       <button mat-button matStepperNext class="button-next">Next</button>
     </form>
   </mat-step>
+  <!--  Step3.新用户选择喜好标签-->
+  <mat-step *ngIf="isNewUser" [stepControl]="fifthFormGroup" errorMessage="Algorithm is required." [editable]="isEditable">
+    <form [formGroup]="fifthFormGroup" class="step-div">
+      <ng-template matStepLabel>选择你喜欢的电影类型</ng-template>
+
+      <mat-chip-grid #chipGrid aria-label="Enter keywords" [formControl]="formControl_tags">
+        <mat-chip-row *ngFor="let keyword of genres" (removed)="removeTag(keyword)">
+          {{getGnereName(keyword)}}
+          <button matChipRemove aria-label="'remove ' + keyword">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip-row>
+        <mat-chip-row>
+          <button matChipRemove aria-label="Add" [matMenuTriggerFor]="menu">
+            <mat-icon>add_circle</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item *ngFor="let tag of s" (click)="addTag(tag.id)">{{tag.name}}</button>
+          </mat-menu>
+        </mat-chip-row>
+      </mat-chip-grid>
+      <input placeholder="New tags..."
+             [matChipInputFor]="chipGrid"/>
+
+      <button mat-button matStepperNext class="button-back">Back</button>
+      <button mat-button matStepperNext class="button-next">Next</button>
+    </form>
+  </mat-step>
 <!--  Step3.输入数据集划分比例 有初始推荐值-->
-  <mat-step [stepControl]="thirdFormGroup" errorMessage="Rate is required." [editable]="isEditable">
+  <mat-step *ngIf="isAdminer" [stepControl]="thirdFormGroup" errorMessage="Rate is required." [editable]="isEditable">
     <form class="step-div">
       <ng-template matStepLabel>选择测试/训练集划分比</ng-template>
 
@@ -61,7 +89,7 @@
     </form>
   </mat-step>
 <!--  Step4.【管理员选项】是否愿意使用CB算法进行兴趣值估算以提高算法性能评测的可信度-->
-  <mat-step [stepControl]="fourthFormGroup" errorMessage="Rate is required." [editable]="isEditable">
+  <mat-step *ngIf="isAdminer" [stepControl]="fourthFormGroup" errorMessage="Rate is required." [editable]="isEditable">
     <form [formGroup]="fourthFormGroup" class="step-div">
       <ng-template matStepLabel>是否开启空值补偿</ng-template>
       <p><mat-checkbox [formControl]="formControl_step4">开启空值补偿</mat-checkbox></p>
@@ -75,8 +103,9 @@
   <mat-step [editable]="isEditable">
     <form class="step-div">
       <ng-template matStepLabel>结束</ng-template>
-      <p *ngIf="!isStart">你已经完成了算法配置环节，点击生成来获取你的推荐结果</p>
-      <p *ngIf="(isStart) && (!isFinish)">推荐结果生成需要一定时间，请客官耐心等待喵~</p>
+      <p *ngIf="!isStart">你已经完成了算法配置环节，点击【生成】来获取你的推荐结果</p>
+      <p *ngIf="(isStart) && (!isFinish)">推荐结果生成需要一定时间，请耐心等待</p>
+      <p *ngIf="(isStart) && (!isFinish) && isAdminer">推荐完成后结果会自动保存到数据库，无需在该页面做过多停留</p>
       <mat-progress-bar mode="query" *ngIf="(isStart) && (!isFinish)"></mat-progress-bar>
       <div *ngIf="!isStart">
         <button mat-button matStepperNext class="button-back">Back</button>
@@ -110,7 +139,7 @@
         </div>
         <mat-divider></mat-divider>
       </mat-list-item>
-      <mat-list-item *ngFor="let mwr of shownMovies" routerLink="/movie-information" [queryParams]="{id:mwr.id}">
+      <mat-list-item *ngFor="let mwr of shownMovies" routerLink="/movie-information" [queryParams]="{id:mwr.id, name:mwr.name}">
         <mat-icon matListItemIcon>movie</mat-icon>
         <div class="list-item">
           <div>{{mwr.name}}</div>

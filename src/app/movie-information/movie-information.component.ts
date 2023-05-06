@@ -27,6 +27,9 @@ export class MovieInformationComponent {
     width: 300,
     height: 300
   };
+  tarurl1 = "";
+  tarurl2 = "";
+  tarurl3 = "";
 
   options: EChartsOption = {
     color: ['#cb2579'],
@@ -69,6 +72,8 @@ export class MovieInformationComponent {
     this.route.queryParams.subscribe((res)=>{
       this.movieId = res['id'];
       this.movieName = res['name'];
+      this.tarurl1 = "https://so.youku.com/search_video/q_" + this.movieName + "?searchfrom=1";
+      this.tarurl2 = "https://search.douban.com/movie/subject_search?search_text=" + this.movieName;
       this.movieGenre = res['genre'];
       this.initMovieData(this.movieId);
       this.initRatingData(this.movieId);

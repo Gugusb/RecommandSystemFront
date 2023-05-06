@@ -11,6 +11,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 })
 export class RatingDialogComponent {
   rating:number = 0;
+  isSure:boolean = false;
 
   constructor(private _formBuilder: FormBuilder,
               public dialogRef: MatDialogRef<RatingDialogComponent>,

@@ -1,18 +1,24 @@
 <div mat-dialog-content class="login-div">
   <p>电影评价</p>
-  <mat-form-field appearance="fill">
-  <mat-label>你对该电影的评价是：</mat-label>
-  <mat-select [(value)]="rating">
-    <mat-option>None</mat-option>
-    <mat-option value=1>1分</mat-option>
-    <mat-option value=2>2分</mat-option>
-    <mat-option value=3>3分</mat-option>
-    <mat-option value=4>4分</mat-option>
-    <mat-option value=5>5分</mat-option>
-  </mat-select>
+  <div *ngIf="!isSure" class="sure-div">
+    <p>确认已经观看过此电影？</p>
+    <p>你的评分行为将影响所有用户的推送结果，请谨慎评价</p>
+    <button mat-button class="false-button" (click)="onNoClick()">否</button>
+    <button mat-button class="sure-button" (click)="isSure = true">是</button>
+  </div>
+  <mat-form-field *ngIf="isSure" appearance="fill">
+    <mat-label>你对该电影的评价是：</mat-label>
+    <mat-select [(value)]="rating">
+      <mat-option>None</mat-option>
+      <mat-option value=1>1分</mat-option>
+      <mat-option value=2>2分</mat-option>
+      <mat-option value=3>3分</mat-option>
+      <mat-option value=4>4分</mat-option>
+      <mat-option value=5>5分</mat-option>
+    </mat-select>
   </mat-form-field>
   <p></p>
 </div>
-<div mat-dialog-actions>
+<div *ngIf="isSure" mat-dialog-actions>
   <button mat-button [mat-dialog-close]="rating" class="login-button" cdkFocusInitial>更新评价</button>
 </div>

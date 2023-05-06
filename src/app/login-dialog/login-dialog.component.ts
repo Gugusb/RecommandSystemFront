@@ -2,6 +2,7 @@ import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 
 export interface loginData{
+  name:string;
   id:number|null;
   password:string;
 }
@@ -14,6 +15,7 @@ export interface loginData{
 export class LoginDialogComponent {
 
   logindata: loginData = {
+    name:"",
     id:null,
     password:""
   };

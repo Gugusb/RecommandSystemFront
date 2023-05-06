@@ -2,8 +2,21 @@
   display: flow;
   width: 300px;
 }
+
+.sure-div{
+  display: flow;
+  height: 120px;
+}
 .login-button{
   display: flex;
   position: fixed;
   right: 48%;
+}
+
+.false-button{
+  margin-left: 23%;
+}
+
+.true-button{
+  margin-left: 22%;
 }

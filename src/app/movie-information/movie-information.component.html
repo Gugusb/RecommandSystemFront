@@ -6,6 +6,15 @@
       <mat-card-subtitle>电影</mat-card-subtitle>
       <mat-card-title class="card-header-title">{{movieName}}</mat-card-title>
       <mat-card-subtitle>{{movieGenre}}</mat-card-subtitle>
+      <mat-card-subtitle class="card-header-title2">
+        <a [href]="tarurl1" target="_blank">
+          <button mat-button color="accent">影视链接(优酷)</button>
+        </a>
+        <a [href]="tarurl2" target="_blank">
+          <button mat-button color="accent">影视链接(豆瓣)</button>
+        </a>
+      </mat-card-subtitle>
+
     </mat-card-header>
     <p>{{ratingMessage}}</p>
     <button mat-fab extended color="primary" (click)="openRatingDialog()">打分</button>
